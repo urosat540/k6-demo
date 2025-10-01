@@ -1,0 +1,14 @@
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: example-testrun
+spec:
+  parallelism: 2
+  script:
+    configMap:
+      name: example-script
+      file: index.js
+  arguments: --out experimental-prometheus-remote=http://prometheus-server.default.svc.cluster.local:9090/api/v1/write
+  runner:
+    image: ghcr.io/k6io/k6:latest
+    pullPolicy: IfNotPresent
